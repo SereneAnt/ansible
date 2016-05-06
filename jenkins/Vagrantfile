@@ -11,7 +11,7 @@ HOST = "localhost"
 
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 8080, host: 9090
 
   config.vm.define HOST
 
@@ -19,7 +19,8 @@ Vagrant.configure(2) do |config|
     ansible.groups = {
       GROUP => [HOST]
     }
-    ansible.playbook = "../../strikead/shrike/playbooks/jenkins-master.yml"
+    install = true
+    ansible.playbook = "../playbook.yml"
     ansible.extra_vars = { skip_apt_update: true }
   end
 end
